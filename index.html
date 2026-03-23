@@ -2,525 +2,320 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>✨ The Zesty Translator ✨</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zesty">
+<meta name="theme-color" content="#0f0a1a">
+<title>Zesty Translator</title>
+<link rel="apple-touch-icon" id="apple-icon" href="">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --hot-pink: #ff2d78;
-    --bubblegum: #ff85c2;
-    --lavender: #c084fc;
-    --sky: #38bdf8;
-    --mint: #34d399;
-    --gold: #fbbf24;
-    --bg: #0f0a1a;
-    --card: #1a1030;
-    --border: rgba(255,45,120,0.3);
-    --text: #f0e6ff;
-    --muted: #8b7aa8;
+    --hot-pink: #ff2d78; --bubblegum: #ff85c2; --lavender: #c084fc;
+    --sky: #38bdf8; --mint: #34d399; --gold: #fbbf24; --orange: #fb923c;
+    --bg: #0f0a1a; --card: #1a1030; --border: rgba(255,45,120,0.3);
+    --text: #f0e6ff; --muted: #8b7aa8;
   }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px 60px;
-    position: relative;
-    overflow-x: hidden;
+    font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: max(env(safe-area-inset-top), 40px) 20px max(env(safe-area-inset-bottom), 60px);
+    position: relative; overflow-x: hidden;
   }
-
-  /* Sparkle background */
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background:
       radial-gradient(ellipse at 20% 20%, rgba(192,132,252,0.12) 0%, transparent 50%),
       radial-gradient(ellipse at 80% 80%, rgba(255,45,120,0.10) 0%, transparent 50%),
       radial-gradient(ellipse at 50% 50%, rgba(56,189,248,0.06) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
   }
-
-  .stars {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background: white;
-    border-radius: 50%;
-    animation: twinkle var(--d) ease-in-out infinite var(--delay);
-    opacity: 0;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0; transform: scale(0.5); }
-    50% { opacity: 0.8; transform: scale(1.2); }
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 780px;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 48px;
-    animation: fadeDown 0.8s ease both;
-  }
-
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .star { position: absolute; width: 3px; height: 3px; background: white; border-radius: 50%; animation: twinkle var(--d) ease-in-out infinite var(--delay); opacity: 0; }
+  @keyframes twinkle { 0%,100%{opacity:0;transform:scale(0.5)} 50%{opacity:0.8;transform:scale(1.2)} }
+  .container { position: relative; z-index: 1; width: 100%; max-width: 720px; }
+  header { text-align: center; margin-bottom: 32px; animation: fadeDown 0.8s ease both; }
   .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--hot-pink), var(--lavender));
-    color: white;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 100px;
-    margin-bottom: 20px;
+    display: inline-block; background: linear-gradient(135deg,var(--hot-pink),var(--lavender));
+    color: white; font-size: 11px; font-weight: 500; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 5px 16px; border-radius: 100px; margin-bottom: 14px;
   }
-
   h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(42px, 8vw, 72px);
-    line-height: 1;
-    background: linear-gradient(135deg, #ff2d78 0%, #c084fc 40%, #38bdf8 80%, #34d399 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 14px;
+    font-family: 'Playfair Display', serif; font-style: italic;
+    font-size: clamp(36px, 8vw, 64px); line-height: 1; margin-bottom: 10px;
+    background: linear-gradient(135deg,#ff2d78 0%,#c084fc 40%,#38bdf8 80%,#34d399 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   }
-
-  .tagline {
-    color: var(--muted);
-    font-size: 15px;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-  }
-
+  .tagline { color: var(--muted); font-size: 14px; font-weight: 300; }
   .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    padding: 32px;
-    margin-bottom: 20px;
-    animation: fadeUp 0.8s ease both;
-    position: relative;
-    overflow: hidden;
+    background: var(--card); border: 1px solid var(--border); border-radius: 22px;
+    padding: 24px; margin-bottom: 14px; animation: fadeUp 0.8s ease both;
+    position: relative; overflow: hidden;
   }
-
   .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--hot-pink), var(--lavender), var(--sky));
-    opacity: 0.6;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg,var(--hot-pink),var(--lavender),var(--sky)); opacity: 0.6;
   }
-
-  .card:nth-child(2) { animation-delay: 0.1s; }
-  .card:nth-child(3) { animation-delay: 0.2s; }
-
+  .card:nth-child(2){animation-delay:.05s} .card:nth-child(3){animation-delay:.1s}
+  .card:nth-child(4){animation-delay:.15s} .card:nth-child(5){animation-delay:.2s}
   .label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
   }
+  .label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--hot-pink); display: inline-block; }
 
-  .label-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--hot-pink);
-  }
-
-  textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 14px;
-    padding: 18px 20px;
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 300;
-    line-height: 1.6;
-    resize: none;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    min-height: 120px;
-  }
-
-  textarea::placeholder { color: var(--muted); }
-
-  textarea:focus {
-    border-color: var(--hot-pink);
-    box-shadow: 0 0 0 3px rgba(255,45,120,0.12);
-  }
-
-  .btn {
-    width: 100%;
-    padding: 18px;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-main {
-    background: linear-gradient(135deg, var(--hot-pink) 0%, #c84adc 50%, var(--lavender) 100%);
-    color: white;
-    margin-top: 20px;
-    box-shadow: 0 8px 32px rgba(255,45,120,0.3);
-  }
-
-  .btn-main:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 40px rgba(255,45,120,0.45);
-  }
-
-  .btn-main:active { transform: translateY(0); }
-
-  .btn-main::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .btn-main:hover::after { opacity: 1; }
-
-  .btn-text { display: flex; align-items: center; justify-content: center; gap: 10px; }
-
-  .output-area {
-    min-height: 120px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 18px 20px;
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--text);
-    white-space: pre-wrap;
-    word-break: break-word;
-  }
-
-  .output-area.empty {
-    color: var(--muted);
-    font-style: italic;
-    font-weight: 300;
-  }
-
-  .loading-dots {
-    display: inline-flex;
-    gap: 5px;
-    align-items: center;
-  }
-
-  .loading-dots span {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--lavender);
-    animation: bounce 1.2s ease-in-out infinite;
-  }
-
-  .loading-dots span:nth-child(2) { animation-delay: 0.15s; background: var(--bubblegum); }
-  .loading-dots span:nth-child(3) { animation-delay: 0.3s; background: var(--sky); }
-
-  @keyframes bounce {
-    0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
-    40% { transform: scale(1.1); opacity: 1; }
-  }
-
-  .output-card .label-dot { background: var(--lavender); }
-
-  .copy-btn {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: var(--text);
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-
-  .copy-btn:hover {
-    background: rgba(255,255,255,0.12);
-    border-color: var(--lavender);
-  }
-
-  .output-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-  }
-
-  .flavor-strip {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    animation: fadeUp 0.8s ease 0.15s both;
-  }
-
+  /* FLAVORS */
+  .flavor-strip { display: flex; gap: 7px; flex-wrap: wrap; }
   .flavor-chip {
-    padding: 7px 15px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.25s;
-    user-select: none;
+    padding: 7px 13px; border-radius: 100px; font-size: 12px; font-weight: 500;
+    cursor: pointer; border: 1px solid transparent; transition: all 0.2s; user-select: none; background: none;
   }
+  .flavor-chip:active { transform: scale(0.94) !important; }
 
-  .flavor-chip.active {
-    transform: scale(1.05);
+  /* INTENSITY */
+  .intensity-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+  .intensity-track { position: relative; height: 6px; border-radius: 100px; background: rgba(255,255,255,0.08); }
+  .intensity-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg,var(--sky),var(--hot-pink),#ff00ff); transition: width 0.1s; pointer-events: none; }
+  input[type=range] {
+    position: absolute; inset: -8px 0; width: 100%; height: calc(100% + 16px);
+    opacity: 0; cursor: pointer; margin: 0;
   }
-
-  .flavor-chip:hover { transform: scale(1.05); }
-
-  .flavor-chip[data-flavor="slay"] { background: rgba(255,45,120,0.15); border-color: var(--hot-pink); color: var(--bubblegum); }
-  .flavor-chip[data-flavor="drag"] { background: rgba(192,132,252,0.15); border-color: var(--lavender); color: var(--lavender); }
-  .flavor-chip[data-flavor="valley"] { background: rgba(56,189,248,0.15); border-color: var(--sky); color: var(--sky); }
-  .flavor-chip[data-flavor="cottagecore"] { background: rgba(52,211,153,0.15); border-color: var(--mint); color: var(--mint); }
-  .flavor-chip[data-flavor="chaotic"] { background: rgba(251,191,36,0.15); border-color: var(--gold); color: var(--gold); }
-
-  .flavor-chip.active[data-flavor="slay"] { background: rgba(255,45,120,0.3); }
-  .flavor-chip.active[data-flavor="drag"] { background: rgba(192,132,252,0.3); }
-  .flavor-chip.active[data-flavor="valley"] { background: rgba(56,189,248,0.3); }
-  .flavor-chip.active[data-flavor="cottagecore"] { background: rgba(52,211,153,0.3); }
-  .flavor-chip.active[data-flavor="chaotic"] { background: rgba(251,191,36,0.3); }
-
-  .typing-hint {
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 10px;
-    opacity: 0;
-    transition: opacity 0.4s;
-    font-style: italic;
+  .intensity-thumb {
+    position: absolute; top: 50%; transform: translate(-50%,-50%);
+    width: 18px; height: 18px; border-radius: 50%;
+    background: white; box-shadow: 0 0 10px rgba(255,45,120,0.7);
+    pointer-events: none; transition: left 0.1s;
   }
+  .intensity-value { text-align: center; font-size: 12px; color: var(--bubblegum); margin-top: 10px; font-weight: 500; min-height: 18px; }
+
+  /* TEXTAREA */
+  textarea {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px; padding: 14px 16px; color: var(--text); font-family: 'DM Sans',sans-serif;
+    font-size: 16px; font-weight: 300; line-height: 1.6; resize: none; outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s; min-height: 100px;
+  }
+  textarea::placeholder { color: var(--muted); }
+  textarea:focus { border-color: var(--hot-pink); box-shadow: 0 0 0 3px rgba(255,45,120,0.12); }
+  .typing-hint { color: var(--muted); font-size: 12px; margin-top: 8px; opacity: 0; transition: opacity 0.4s; font-style: italic; }
   .typing-hint.visible { opacity: 1; }
 
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-24px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* OUTPUT */
+  .output-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .output-area {
+    min-height: 90px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px; padding: 14px 16px; font-size: 16px; line-height: 1.7;
+    color: var(--text); white-space: pre-wrap; word-break: break-word;
   }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .output-area.empty { color: var(--muted); font-style: italic; font-weight: 300; }
+  .loading-dots { display: inline-flex; gap: 5px; align-items: center; }
+  .loading-dots span { width: 7px; height: 7px; border-radius: 50%; background: var(--lavender); animation: bounce 1.2s ease-in-out infinite; }
+  .loading-dots span:nth-child(2){animation-delay:.15s;background:var(--bubblegum)}
+  .loading-dots span:nth-child(3){animation-delay:.3s;background:var(--sky)}
+  @keyframes bounce{0%,80%,100%{transform:scale(0.7);opacity:0.5}40%{transform:scale(1.1);opacity:1}}
+  .copy-btn {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text); padding: 7px 14px; border-radius: 8px; font-size: 12px;
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans',sans-serif;
   }
-
-  .sparkle-pop {
-    animation: sparklePop 0.5s ease both;
-  }
-
-  @keyframes sparklePop {
-    0% { opacity: 0; transform: scale(0.92); }
-    60% { transform: scale(1.02); }
-    100% { opacity: 1; transform: scale(1); }
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 32px;
-    color: var(--muted);
-    font-size: 12px;
-    animation: fadeUp 1s ease 0.4s both;
-    position: relative;
-    z-index: 1;
-  }
+  .copy-btn:hover { background: rgba(255,255,255,0.12); border-color: var(--lavender); }
+  .sparkle-pop { animation: sparklePop 0.5s ease both; }
+  @keyframes sparklePop{0%{opacity:0;transform:scale(0.92)}60%{transform:scale(1.02)}100%{opacity:1;transform:scale(1)}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  footer { text-align: center; margin-top: 24px; color: var(--muted); font-size: 12px; animation: fadeUp 1s ease 0.3s both; position: relative; z-index: 1; }
+  @media(max-width:480px){.card{padding:18px;border-radius:18px}h1{font-size:36px}}
 </style>
 </head>
 <body>
-
 <div class="stars" id="stars"></div>
-
 <div class="container">
   <header>
     <div class="badge">✨ Powered by fabulousness ✨</div>
-    <h1>The Zesty Translator</h1>
+    <h1>Zesty Translator</h1>
     <p class="tagline">Say anything. Get it back, but make it GAY.</p>
   </header>
 
-  <div class="flavor-strip">
-    <span class="flavor-chip active" data-flavor="slay">💅 Slay Mode</span>
-    <span class="flavor-chip" data-flavor="drag">👑 Drag Queen</span>
-    <span class="flavor-chip" data-flavor="valley">🌸 Valley Gay</span>
-    <span class="flavor-chip" data-flavor="cottagecore">🌿 Cottagecore Gay</span>
-    <span class="flavor-chip" data-flavor="chaotic">🔥 Chaotic Gay</span>
+  <div class="card">
+    <div class="label"><span class="label-dot"></span>Pick your vibe</div>
+    <div class="flavor-strip" id="flavorStrip">
+      <span class="flavor-chip active" data-flavor="slay"     data-color="#ff2d78">💅 Slay</span>
+      <span class="flavor-chip"        data-flavor="drag"     data-color="#c084fc">👑 Drag Queen</span>
+      <span class="flavor-chip"        data-flavor="valley"   data-color="#38bdf8">🌸 Valley Gay</span>
+      <span class="flavor-chip"        data-flavor="cottage"  data-color="#34d399">🌿 Cottagecore</span>
+      <span class="flavor-chip"        data-flavor="chaotic"  data-color="#fbbf24">🔥 Chaotic</span>
+      <span class="flavor-chip"        data-flavor="genalpha" data-color="#fb923c">📱 Gen Alpha</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label"><span class="label-dot" style="background:var(--lavender)"></span>Intensity</div>
+    <div class="intensity-labels"><span>a lil gay 🌈</span><span>FULLY UNHINGED 🔥</span></div>
+    <div class="intensity-track" id="track">
+      <div class="intensity-fill" id="fill" style="width:44%"></div>
+      <div class="intensity-thumb" id="thumb" style="left:44%"></div>
+      <input type="range" id="intensitySlider" min="1" max="10" value="5">
+    </div>
+    <div class="intensity-value" id="intensityLabel"></div>
   </div>
 
   <div class="card">
     <div class="label"><span class="label-dot"></span>Your boring input</div>
-    <textarea id="inputText" placeholder="Type something basic here... 'I'm going to the grocery store' or 'I had a really long day at work'..." rows="5"></textarea>
+    <textarea id="inputText" placeholder="Type something... 'I'm tired' or 'going to the store'" rows="4"></textarea>
     <div class="typing-hint" id="typingHint">✨ translating as you type...</div>
   </div>
 
   <div class="card output-card">
     <div class="output-header">
-      <div class="label" style="margin-bottom:0"><span class="label-dot"></span>Zesty translation</div>
-      <button class="copy-btn" id="copyBtn" onclick="copyOutput()" style="display:none">Copy 💖</button>
+      <div class="label" style="margin-bottom:0"><span class="label-dot" style="background:var(--lavender)"></span>Zesty translation</div>
+      <button class="copy-btn" id="copyBtn" style="display:none">Copy 💖</button>
     </div>
     <div class="output-area empty" id="outputArea">Your fabulous translation will appear here, honey...</div>
   </div>
 </div>
-
 <footer>No basic text shall go untransformed &nbsp;·&nbsp; Stay zesty 🌈</footer>
 
 <script>
-  // Generate twinkling stars
-  const starsContainer = document.getElementById('stars');
-  for (let i = 0; i < 80; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.cssText = `
-      left: ${Math.random() * 100}%;
-      top: ${Math.random() * 100}%;
-      --d: ${2 + Math.random() * 4}s;
-      --delay: -${Math.random() * 6}s;
-    `;
-    starsContainer.appendChild(star);
-  }
+// Stars
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 70; i++) {
+  const s = document.createElement('div'); s.className = 'star';
+  s.style.cssText = `left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*4}s;--delay:-${Math.random()*6}s;`;
+  starsEl.appendChild(s);
+}
 
-  // Flavor selection — handled in zestify block below
-  let selectedFlavor = 'slay';
-  document.querySelectorAll('.flavor-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.flavor-chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-      selectedFlavor = chip.dataset.flavor;
-    });
+// PWA icon via canvas
+(function() {
+  const c = document.createElement('canvas'); c.width = c.height = 512;
+  const ctx = c.getContext('2d');
+  const bg = ctx.createLinearGradient(0,0,512,512);
+  bg.addColorStop(0,'#1a0a2e'); bg.addColorStop(1,'#0f0a1a');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,512,512);
+  const arc = ctx.createLinearGradient(0,0,512,512);
+  arc.addColorStop(0,'#ff2d78'); arc.addColorStop(0.4,'#c084fc');
+  arc.addColorStop(0.7,'#38bdf8'); arc.addColorStop(1,'#34d399');
+  ctx.strokeStyle = arc; ctx.lineWidth = 30;
+  ctx.beginPath(); ctx.arc(256,256,180,0,Math.PI*2); ctx.stroke();
+  ctx.font = '200px serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('✨', 256, 268);
+  const url = c.toDataURL('image/png');
+  document.getElementById('apple-icon').href = url;
+  // dynamic manifest
+  const manifest = {name:"Zesty Translator",short_name:"Zesty",start_url:".",display:"standalone",background_color:"#0f0a1a",theme_color:"#0f0a1a",icons:[{src:url,sizes:"512x512",type:"image/png"}]};
+  const blob = new Blob([JSON.stringify(manifest)],{type:'application/json'});
+  const ml = document.createElement('link'); ml.rel='manifest'; ml.href=URL.createObjectURL(blob);
+  document.head.appendChild(ml);
+})();
+
+// Flavor chips
+let selectedFlavor = 'slay';
+const chips = document.querySelectorAll('.flavor-chip');
+function styleChip(chip, active) {
+  const color = chip.dataset.color;
+  chip.style.borderColor = color; chip.style.color = color;
+  chip.style.background = active ? `${color}30` : `${color}15`;
+  chip.style.transform = active ? 'scale(1.06)' : 'scale(1)';
+}
+chips.forEach(chip => {
+  styleChip(chip, chip.classList.contains('active'));
+  chip.addEventListener('click', () => {
+    chips.forEach(c => { c.classList.remove('active'); styleChip(c, false); });
+    chip.classList.add('active'); styleChip(chip, true);
+    selectedFlavor = chip.dataset.flavor;
+    if (document.getElementById('inputText').value.trim()) scheduleZestify(300);
   });
+});
 
-  const flavorPrompts = {
-    slay: `Zesty translator. Rewrite the input with slay gay energy. KEEP IT SHORT — same length as input, 1 sentence for short inputs. Use: bestie, periodt, slay, ate, no crumbs, sis. Emojis ok. Output the translation only, nothing else.`,
-    drag: `Zesty translator in drag queen mode. Rewrite the input SHORT — same length as input, 1 sentence for short inputs. Use: honey, mama, gagging, sickening, werk, boots. Output the translation only, nothing else.`,
-    valley: `Zesty translator in valley gay mode. Rewrite the input SHORT — same length as input, 1 sentence for short inputs. Use: like, literally, oh my god, I cannot, that's giving, unwell. Output the translation only, nothing else.`,
-    cottagecore: `Zesty translator in cottagecore gay mode. Rewrite the input SHORT — same length as input, 1 sentence for short inputs. Soft, whimsical, nature-y. Use emojis like 🌿🍄🌸. Output the translation only, nothing else.`,
-    chaotic: `Zesty translator in chaotic gay mode. Rewrite the input SHORT — same length as input, 1 sentence for short inputs. ALL CAPS for emphasis, ellipses, unhinged energy!!! Output the translation only, nothing else.`
+// Intensity slider
+const slider = document.getElementById('intensitySlider');
+const fillEl = document.getElementById('fill');
+const thumbEl = document.getElementById('thumb');
+const labelEl = document.getElementById('intensityLabel');
+const intensityLabels = ['','barely gay 🏳️','a lil zesty 🌈','kinda gay tbh 💅','pretty gay ngl ✨','medium gay ✨','very much so 👑','super gay 🌸','extremely gay 🔥','chaotically unhinged 😭','FULLY FERAL 💀🔥'];
+function updateSlider() {
+  const v = slider.value, pct = ((v-1)/9)*100;
+  fillEl.style.width = pct+'%'; thumbEl.style.left = pct+'%';
+  labelEl.textContent = intensityLabels[v];
+}
+slider.addEventListener('input', () => { updateSlider(); if (document.getElementById('inputText').value.trim()) scheduleZestify(500); });
+updateSlider();
+
+// Prompts
+function buildPrompt(flavor, intensity) {
+  const len = `KEEP IT SHORT — match the input length, 1 sentence for short inputs. Output ONLY the translation, nothing else.`;
+  const tone = intensity<=3 ? `Tone: subtle, just a hint of the vibe.` : intensity<=6 ? `Tone: clearly in the vibe, fun but not overwhelming.` : intensity<=8 ? `Tone: very loud and proud, leaning all the way in.` : `Tone: FULLY UNHINGED, maximum chaos, absolutely no chill.`;
+  const vibes = {
+    slay:     `Zesty gay translator, SLAY mode. Rewrite with: bestie, periodt, slay, ate, no crumbs, sis, mother, understood the assignment. Emojis ok.`,
+    drag:     `Zesty gay translator, DRAG QUEEN mode. Use: honey, mama, gagging, sickening, werk, boots the house down, category is. Theatrical.`,
+    valley:   `Zesty gay translator, VALLEY GAY mode. Use: like, literally, oh my god, I cannot, that's giving, rent free, unwell, feral.`,
+    cottage:  `Zesty gay translator, COTTAGECORE GAY mode. Soft, whimsical. Use: 🌿🍄🌸🐌 mushrooms, bees, the moon, found family.`,
+    chaotic:  `Zesty gay translator, CHAOTIC GAY mode. ALL CAPS for emphasis, ellipses, exclamation points!!! Unhinged, dramatic.`,
+    genalpha: `Zesty gay translator, GEN ALPHA BRAINROT mode. Use: no cap, fr fr, bussin, rizz, gyatt, NPC, ohio, skibidi, delulu, based, lowkey, it's giving, hit different.`,
   };
+  return `${vibes[flavor]} ${tone} ${len}`;
+}
 
-  let debounceTimer = null;
-  let isTranslating = false;
+// API
+const GROQ_API_KEY = "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";
+let debounceTimer = null, isTranslating = false, pendingAfter = false;
 
-  async function zestify() {
-    const input = document.getElementById('inputText').value.trim();
-    const outputArea = document.getElementById('outputArea');
-    const copyBtn = document.getElementById('copyBtn');
-    const hint = document.getElementById('typingHint');
+function scheduleZestify(delay = 900) {
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(zestify, delay);
+}
 
-    if (!input) {
-      outputArea.className = 'output-area empty';
-      outputArea.textContent = 'Your fabulous translation will appear here, honey...';
-      copyBtn.style.display = 'none';
-      hint.classList.remove('visible');
-      return;
-    }
-
-    if (isTranslating) return;
-    isTranslating = true;
-    hint.classList.remove('visible');
-    copyBtn.style.display = 'none';
-    outputArea.className = 'output-area';
-    outputArea.innerHTML = `<span class="loading-dots"><span></span><span></span><span></span></span>`;
-
-    try {
-      const GROQ_API_KEY = "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";
-
-      const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${GROQ_API_KEY}`,
-        },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          max_tokens: 1000,
-          messages: [
-            { role: "system", content: flavorPrompts[selectedFlavor] },
-            { role: "user", content: `Translate this text: "${input}"` }
-          ]
-        })
-      });
-
-      const data = await response.json();
-      const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
-      outputArea.className = 'output-area sparkle-pop';
-      outputArea.textContent = translated;
-      copyBtn.style.display = 'inline-block';
-    } catch (err) {
-      outputArea.className = 'output-area';
-      outputArea.textContent = "Oof, the translator is having a moment 😭 Try again?";
-    }
-
-    isTranslating = false;
+async function zestify() {
+  const input = document.getElementById('inputText').value.trim();
+  const outputArea = document.getElementById('outputArea');
+  const copyBtn = document.getElementById('copyBtn');
+  const hint = document.getElementById('typingHint');
+  if (!input) {
+    outputArea.className = 'output-area empty';
+    outputArea.textContent = 'Your fabulous translation will appear here, honey...';
+    copyBtn.style.display = 'none'; hint.classList.remove('visible'); return;
   }
-
-  async function copyOutput() {
-    const text = document.getElementById('outputArea').textContent;
-    const btn = document.getElementById('copyBtn');
-    await navigator.clipboard.writeText(text);
-    btn.textContent = 'Copied! 💖';
-    setTimeout(() => btn.textContent = 'Copy 💖', 2000);
-  }
-
-  document.getElementById('inputText').addEventListener('input', () => {
-    const hint = document.getElementById('typingHint');
-    const val = document.getElementById('inputText').value.trim();
-    if (val) hint.classList.add('visible');
-    else hint.classList.remove('visible');
-
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(zestify, 900);
-  });
-
-  // Also re-zestify when flavor changes if there's already text
-  document.querySelectorAll('.flavor-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      if (document.getElementById('inputText').value.trim()) {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(zestify, 300);
-      }
+  if (isTranslating) { pendingAfter = true; return; }
+  isTranslating = true;
+  hint.classList.remove('visible'); copyBtn.style.display = 'none';
+  outputArea.className = 'output-area';
+  outputArea.innerHTML = `<span class="loading-dots"><span></span><span></span><span></span></span>`;
+  try {
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {"Content-Type":"application/json","Authorization":`Bearer ${GROQ_API_KEY}`},
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile", max_tokens: 300,
+        messages: [
+          {role:"system", content: buildPrompt(selectedFlavor, parseInt(slider.value))},
+          {role:"user", content: `Translate: "${input}"`}
+        ]
+      })
     });
-  });
+    const data = await res.json();
+    const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
+    outputArea.className = 'output-area sparkle-pop';
+    outputArea.textContent = translated;
+    copyBtn.style.display = 'inline-block';
+  } catch(e) {
+    outputArea.className = 'output-area';
+    outputArea.textContent = "Oof, having a moment 😭 Try again?";
+  }
+  isTranslating = false;
+  if (pendingAfter) { pendingAfter = false; scheduleZestify(100); }
+}
+
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const btn = document.getElementById('copyBtn');
+  await navigator.clipboard.writeText(document.getElementById('outputArea').textContent);
+  btn.textContent = 'Copied! 💖'; setTimeout(()=>btn.textContent='Copy 💖',2000);
+});
+
+document.getElementById('inputText').addEventListener('input', () => {
+  const val = document.getElementById('inputText').value.trim();
+  document.getElementById('typingHint').classList.toggle('visible', !!val);
+  scheduleZestify(900);
+});
 </script>
 </body>
 </html>
