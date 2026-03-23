@@ -132,8 +132,39 @@
 <div class="stars" id="stars"></div>
 <div class="container">
   <header>
-    <div class="badge">✨ Powered by fabulousness ✨</div>
-    <h1>Zesty Translator</h1>
+    <svg width="100%" viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;display:block;margin:0 auto 8px;">
+      <defs>
+        <linearGradient id="textGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ff2d78"/>
+          <stop offset="35%" stop-color="#c084fc"/>
+          <stop offset="70%" stop-color="#38bdf8"/>
+          <stop offset="100%" stop-color="#34d399"/>
+        </linearGradient>
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff2d78"/>
+          <stop offset="40%" stop-color="#c084fc"/>
+          <stop offset="100%" stop-color="#38bdf8"/>
+        </linearGradient>
+      </defs>
+      <rect x="60" y="30" width="560" height="180" rx="32" fill="#0f0a1a"/>
+      <circle cx="145" cy="120" r="62" fill="none" stroke="url(#ringGrad)" stroke-width="5"/>
+      <circle cx="145" cy="120" r="48" fill="#1a1030"/>
+      <polygon points="145,78 151,114 145,120 139,114" fill="#ff2d78" opacity="0.9"/>
+      <polygon points="145,162 151,126 145,120 139,126" fill="#c084fc" opacity="0.9"/>
+      <polygon points="103,120 139,114 145,120 139,126" fill="#38bdf8" opacity="0.9"/>
+      <polygon points="187,120 151,114 145,120 151,126" fill="#34d399" opacity="0.9"/>
+      <polygon points="145,90 148,112 145,120 142,112" fill="#fbbf24" opacity="0.7" transform="rotate(45,145,120)"/>
+      <polygon points="145,90 148,112 145,120 142,112" fill="#ff85c2" opacity="0.7" transform="rotate(135,145,120)"/>
+      <polygon points="145,90 148,112 145,120 142,112" fill="#a78bfa" opacity="0.7" transform="rotate(225,145,120)"/>
+      <polygon points="145,90 148,112 145,120 142,112" fill="#67e8f9" opacity="0.7" transform="rotate(315,145,120)"/>
+      <polygon points="226,52 228,60 236,62 228,64 226,72 224,64 216,62 224,60" fill="#ff2d78" opacity="0.8"/>
+      <polygon points="590,56 592,62 598,64 592,66 590,72 588,66 582,64 588,62" fill="#c084fc" opacity="0.7"/>
+      <polygon points="610,148 611,153 616,154 611,155 610,160 609,155 604,154 609,153" fill="#34d399" opacity="0.6"/>
+      <polygon points="228,172 229,177 234,178 229,179 228,184 227,179 222,178 227,177" fill="#38bdf8" opacity="0.6"/>
+      <text x="236" y="108" font-family="Georgia, serif" font-style="italic" font-size="62" font-weight="700" fill="url(#textGrad)">Zesty</text>
+      <text x="236" y="165" font-family="'DM Sans', system-ui, sans-serif" font-size="24" font-weight="400" letter-spacing="6" fill="#8b7aa8">TRANSLATOR</text>
+      <rect x="236" y="174" width="340" height="2" rx="1" fill="url(#textGrad)" opacity="0.5"/>
+    </svg>
     <p class="tagline">Say anything. Get it back, but make it GAY.</p>
   </header>
 
@@ -151,7 +182,7 @@
 
   <div class="card">
     <div class="label"><span class="label-dot" style="background:var(--lavender)"></span>Intensity</div>
-    <div class="intensity-labels"><span>a lil gay 🌈</span><span>FULLY UNHINGED 🔥</span></div>
+    <div class="intensity-labels"><span>a really low nigger gay 🌈</span><span>a faggot really gay 🔥</span></div>
     <div class="intensity-track" id="track">
       <div class="intensity-fill" id="fill" style="width:44%"></div>
       <div class="intensity-thumb" id="thumb" style="left:44%"></div>
@@ -161,7 +192,7 @@
   </div>
 
   <div class="card">
-    <div class="label"><span class="label-dot"></span>Your boring input</div>
+    <div class="label"><span class="label-dot"></span>Your ass nigger dub input</div>
     <textarea id="inputText" placeholder="Type something... 'I'm tired' or 'going to the store'" rows="4"></textarea>
     <div class="typing-hint" id="typingHint">✨ translating as you type...</div>
   </div>
