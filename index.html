@@ -290,7 +290,7 @@ function buildPrompt(flavor, intensity) {
 }
 
 // API - Using Cloudflare Worker proxy 🛡️
-const WORKER_URL = "https://zesty-proxy.latif942.workers.dev/"; // ⚠️ PASTE YOUR ACTUAL WORKER URL HERE
+const WORKER_URL = "https://zesty-proxy.latif942.workers.dev"; // ⚠️ PASTE YOUR ACTUAL WORKER URL HERE
 let debounceTimer = null, isTranslating = false, pendingAfter = false;
 
 function scheduleZestify(delay = 900) {
