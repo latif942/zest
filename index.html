@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#0f0a1a">
 <title>Zesty Translator</title>
 <link rel="apple-touch-icon" id="apple-icon" href="">
+<link rel="icon" id="favicon" href="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -182,7 +183,7 @@
 
   <div class="card">
     <div class="label"><span class="label-dot" style="background:var(--lavender)"></span>Intensity</div>
-    <div class="intensity-labels"><span>a really low nigger gay 🌈</span><span>a faggot really gay 🔥</span></div>
+    <div class="intensity-labels"><span>a lil gay 🌈</span><span>FULLY UNHINGED 🔥</span></div>
     <div class="intensity-track" id="track">
       <div class="intensity-fill" id="fill" style="width:44%"></div>
       <div class="intensity-thumb" id="thumb" style="left:44%"></div>
@@ -192,7 +193,7 @@
   </div>
 
   <div class="card">
-    <div class="label"><span class="label-dot"></span>Your ass nigger dub input</div>
+    <div class="label"><span class="label-dot"></span>Your boring input</div>
     <textarea id="inputText" placeholder="Type something... 'I'm tired' or 'going to the store'" rows="4"></textarea>
     <div class="typing-hint" id="typingHint">✨ translating as you type...</div>
   </div>
@@ -232,6 +233,7 @@ for (let i = 0; i < 70; i++) {
   ctx.fillText('✨', 256, 268);
   const url = c.toDataURL('image/png');
   document.getElementById('apple-icon').href = url;
+  const fav = document.getElementById('favicon'); fav.type='image/png'; fav.href = url;
   // dynamic manifest
   const manifest = {name:"Zesty Translator",short_name:"Zesty",start_url:".",display:"standalone",background_color:"#0f0a1a",theme_color:"#0f0a1a",icons:[{src:url,sizes:"512x512",type:"image/png"}]};
   const blob = new Blob([JSON.stringify(manifest)],{type:'application/json'});
