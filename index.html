@@ -303,54 +303,29 @@ async function zestify() {
   const outputArea = document.getElementById('outputArea');
   const copyBtn = document.getElementById('copyBtn');
   const hint = document.getElementById('typingHint');
-  
   if (!input) {
     outputArea.className = 'output-area empty';
     outputArea.textContent = 'Your fabulous translation will appear here, honey...';
-    copyBtn.style.display = 'none'; 
-    hint.classList.remove('visible'); 
-    return;
+    copyBtn.style.display = 'none'; hint.classList.remove('visible'); return;
   }
-  
   if (isTranslating) { pendingAfter = true; return; }
   isTranslating = true;
-  
-  hint.classList.remove('visible'); 
-  copyBtn.style.display = 'none';
+  hint.classList.remove('visible'); copyBtn.style.display = 'none';
   outputArea.className = 'output-area';
   outputArea.innerHTML = `<span class="loading-dots"><span></span><span></span><span></span></span>`;
-  
   try {
     const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        max_tokens: 300,
-        messages: [
-          { role: "system", content: buildPrompt(selectedFlavor, parseInt(slider.value)) },
-          { role: "user", content: `Translate: "${input}"` }
-        ]
-      })
-    });
-    
-    // ✅ Parse the response
-    const data = await res.json();
-    
-    const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
-    outputArea.className = 'output-area sparkle-pop';
-    outputArea.textContent = translated;
-    copyBtn.style.display = 'inline-block';
-    
-  } catch(e) {
-    console.error('Translation error:', e);
-    outputArea.className = 'output-area';
-    outputArea.textContent = "Oof, having a moment 😭 Try again?";
-  }
-  
-  isTranslating = false;
-  if (pendingAfter) { pendingAfter = false; scheduleZestify(100); }
-}
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    model: "llama-3.3-70b-versatile",
+    max_tokens: 300,
+    messages: [
+      { role: "system", content: buildPrompt(selectedFlavor, parseInt(slider.value)) },
+      { role: "user", content: `Translate: "${input}"` }
+    ]
+  })
+});
     const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
     outputArea.className = 'output-area sparkle-pop';
     outputArea.textContent = translated;
