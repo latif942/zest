@@ -290,7 +290,8 @@ function buildPrompt(flavor, intensity) {
 }
 
 // API - Using Cloudflare Worker proxy 🛡️
-const WORKER_URL = "https://zesty-proxy.latif942.workers.dev"; // ⚠️ PASTE YOUR ACTUAL WORKER URL HERE
+// ⚠️ REPLACE THIS URL WITH YOUR ACTUAL WORKER URL
+const WORKER_URL = "https://zesty-proxy.latif942.workers.dev"; 
 let debounceTimer = null, isTranslating = false, pendingAfter = false;
 
 function scheduleZestify(delay = 900) {
@@ -315,22 +316,27 @@ async function zestify() {
   outputArea.innerHTML = `<span class="loading-dots"><span></span><span></span><span></span></span>`;
   try {
     const res = await fetch(WORKER_URL, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    model: "llama-3.3-70b-versatile",
-    max_tokens: 300,
-    messages: [
-      { role: "system", content: buildPrompt(selectedFlavor, parseInt(slider.value)) },
-      { role: "user", content: `Translate: "${input}"` }
-    ]
-  })
-});
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        max_tokens: 300,
+        messages: [
+          { role: "system", content: buildPrompt(selectedFlavor, parseInt(slider.value)) },
+          { role: "user", content: `Translate: "${input}"` }
+        ]
+      })
+    });
+    
+    // ✅ FIX: Parse the JSON response
+    const data = await res.json();
+    
     const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
     outputArea.className = 'output-area sparkle-pop';
     outputArea.textContent = translated;
     copyBtn.style.display = 'inline-block';
   } catch(e) {
+    console.error('Translation error:', e);
     outputArea.className = 'output-area';
     outputArea.textContent = "Oof, having a moment 😭 Try again?";
   }
