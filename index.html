@@ -325,7 +325,7 @@ async function zestify() {
       { role: "user", content: `Translate: "${input}"` }
     ]
   })
-});n();
+});
     const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
     outputArea.className = 'output-area sparkle-pop';
     outputArea.textContent = translated;
