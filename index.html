@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Zest Fest">
+<meta name="apple-mobile-web-app-title" content="Zesty">
 <meta name="theme-color" content="#0f0a1a">
-<title>Zest Fest</title>
+<title>Zesty Translator</title>
 <link rel="apple-touch-icon" id="apple-icon" href="">
 <link rel="icon" id="favicon" href="">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -162,11 +162,11 @@
       <polygon points="590,56 592,62 598,64 592,66 590,72 588,66 582,64 588,62" fill="#c084fc" opacity="0.7"/>
       <polygon points="610,148 611,153 616,154 611,155 610,160 609,155 604,154 609,153" fill="#34d399" opacity="0.6"/>
       <polygon points="228,172 229,177 234,178 229,179 228,184 227,179 222,178 227,177" fill="#38bdf8" opacity="0.6"/>
-      <text x="236" y="108" font-family="Georgia, serif" font-style="italic" font-size="62" font-weight="700" fill="url(#textGrad)">Zest</text>
-      <text x="236" y="165" font-family="'DM Sans', system-ui, sans-serif" font-size="24" font-weight="400" letter-spacing="6" fill="#8b7aa8">FEST</text>
+      <text x="236" y="108" font-family="Georgia, serif" font-style="italic" font-size="62" font-weight="700" fill="url(#textGrad)">Zesty</text>
+      <text x="236" y="165" font-family="'DM Sans', system-ui, sans-serif" font-size="24" font-weight="400" letter-spacing="6" fill="#8b7aa8">TRANSLATOR</text>
       <rect x="236" y="174" width="340" height="2" rx="1" fill="url(#textGrad)" opacity="0.5"/>
     </svg>
-    <p class="tagline">Say anything. Get it back, but make it GAY.</p>
+    <p class="tagline">Say anything. Get it back, but make it ZESTY.</p>
   </header>
 
   <div class="card">
@@ -183,7 +183,7 @@
 
   <div class="card">
     <div class="label"><span class="label-dot" style="background:var(--lavender)"></span>Intensity</div>
-    <div class="intensity-labels"><span>a lil gay 🌈</span><span>FULLY UNHINGED 🔥</span></div>
+    <div class="intensity-labels"><span>a lil zesty ✨</span><span>FULLY UNHINGED 🔥</span></div>
     <div class="intensity-track" id="track">
       <div class="intensity-fill" id="fill" style="width:44%"></div>
       <div class="intensity-thumb" id="thumb" style="left:44%"></div>
@@ -200,7 +200,7 @@
 
   <div class="card output-card">
     <div class="output-header">
-      <div class="label" style="margin-bottom:0"><span class="label-dot" style="background:var(--lavender)"></span>Zest Fest translation</div>
+      <div class="label" style="margin-bottom:0"><span class="label-dot" style="background:var(--lavender)"></span>Zesty translation</div>
       <button class="copy-btn" id="copyBtn" style="display:none">Copy 💖</button>
     </div>
     <div class="output-area empty" id="outputArea">Your fabulous translation will appear here, honey...</div>
@@ -235,7 +235,7 @@ for (let i = 0; i < 70; i++) {
   document.getElementById('apple-icon').href = url;
   const fav = document.getElementById('favicon'); fav.type='image/png'; fav.href = url;
   // dynamic manifest
-  const manifest = {name:"Zest Fest",short_name:"Zest",start_url:".",display:"standalone",background_color:"#0f0a1a",theme_color:"#0f0a1a",icons:[{src:url,sizes:"512x512",type:"image/png"}]};
+  const manifest = {name:"Zesty Translator",short_name:"Zesty",start_url:".",display:"standalone",background_color:"#0f0a1a",theme_color:"#0f0a1a",icons:[{src:url,sizes:"512x512",type:"image/png"}]};
   const blob = new Blob([JSON.stringify(manifest)],{type:'application/json'});
   const ml = document.createElement('link'); ml.rel='manifest'; ml.href=URL.createObjectURL(blob);
   document.head.appendChild(ml);
@@ -265,7 +265,7 @@ const slider = document.getElementById('intensitySlider');
 const fillEl = document.getElementById('fill');
 const thumbEl = document.getElementById('thumb');
 const labelEl = document.getElementById('intensityLabel');
-const intensityLabels = ['','barely gay 🏳️','a lil zesty 🌈','kinda gay tbh 💅','pretty gay ngl ✨','medium gay ✨','very much so 👑','super gay 🌸','extremely gay 🔥','chaotically unhinged 😭','FULLY FERAL 💀🔥'];
+const intensityLabels = ['','barely zesty 😶','a lil extra ✨','getting there 💅','pretty zesty ngl','medium unhinged ✨','very much so 👑','super extra 🌸','extremely zesty 🔥','chaotically unhinged 😭','FULLY FERAL 💀🔥'];
 function updateSlider() {
   const v = slider.value, pct = ((v-1)/9)*100;
   fillEl.style.width = pct+'%'; thumbEl.style.left = pct+'%';
@@ -277,34 +277,20 @@ updateSlider();
 // Prompts
 function buildPrompt(flavor, intensity) {
   const len = `KEEP IT SHORT — match the input length, 1 sentence for short inputs. Output ONLY the translation, nothing else.`;
-  
-  // Profanity based on intensity
-  let profanity = '';
-  if (intensity <= 4) {
-    profanity = `Profanity: Keep it clean. No cussing.`;
-  } else if (intensity <= 7) {
-    profanity = `Profanity: Mild cussing allowed (hell, damn, ass, bitch).`;
-  } else {
-    profanity = `Profanity: Strong language encouraged (fuck, shit, etc.) — be unhinged.`;
-  }
-
   const tone = intensity<=3 ? `Tone: subtle, just a hint of the vibe.` : intensity<=6 ? `Tone: clearly in the vibe, fun but not overwhelming.` : intensity<=8 ? `Tone: very loud and proud, leaning all the way in.` : `Tone: FULLY UNHINGED, maximum chaos, absolutely no chill.`;
-  
   const vibes = {
-    slay:     `Zesty gay translator, SLAY mode. Rewrite with: bestie, periodt, slay, ate, no crumbs, sis, mother, understood the assignment. Emojis ok.`,
-    drag:     `Zesty gay translator, DRAG QUEEN mode. Use: honey, mama, gagging, sickening, werk, boots the house down, category is. Theatrical.`,
-    valley:   `Zesty gay translator, VALLEY GAY mode. Use: like, literally, oh my god, I cannot, that's giving, rent free, unwell, feral.`,
-    cottage:  `Zesty gay translator, COTTAGECORE GAY mode. Soft, whimsical. Use: 🌿🍄🌸🐌 mushrooms, bees, the moon, found family.`,
-    chaotic:  `Zesty gay translator, CHAOTIC GAY mode. ALL CAPS for emphasis, ellipses, exclamation points!!! Unhinged, dramatic.`,
-    genalpha: `Zesty gay translator, GEN ALPHA BRAINROT mode. Use: no cap, fr fr, bussin, rizz, gyatt, NPC, ohio, skibidi, delulu, based, lowkey, it's giving, hit different.`,
+    slay:     `Zesty translator, EXTRA & ENTHUSIASTIC mode. Rewrite with lots of energy, double letters for emphasis (heyy, omgg, yasss), exclamation points, and fun. Use: bestie, girlie, literally, obsessed, I'm crying, this is everything. Emojis ok. NOT specifically gay — just fun and expressive.`,
+    drag:     `Zesty translator, DRAMATIC & THEATRICAL mode. Everything is a big deal. Use: honey, darling, oh my god, I cannot, absolutely not, the audacity, stunning, iconic. Over the top but not gay-coded.`,
+    valley:   `Zesty translator, VALLEY GIRL mode. Use: like, literally, oh my god, so cute, totally, no way, I can't even, that's so random, whatever, ugh. Casual and bubbly.`,
+    cottage:  `Zesty translator, SOFT & WHIMSICAL mode. Gentle, cozy, sweet language. Use: oh how lovely, delightful, I adore this, how sweet, precious, cozy, soft. Nature emojis ok 🌿🌸🍄.`,
+    chaotic:  `Zesty translator, CHAOTIC UNHINGED mode. ALL CAPS for emphasis, ellipses, exclamation points!!! Frantic energy, dramatic, a little unwell. Like texting at 3am.`,
+    genalpha: `Zesty translator, GEN ALPHA BRAINROT mode. Use: no cap, fr fr, bussin, rizz, NPC, ohio, skibidi, delulu, based, lowkey, it's giving, hit different, slay (as in cool, not gay). Pure brainrot.`,
   };
-  
-  return `${vibes[flavor]} ${tone} ${profanity} ${len}`;
+  return `${vibes[flavor]} ${tone} ${len}`;
 }
 
-// API - Using Cloudflare Worker proxy 🛡️
-// ⚠️ REPLACE THIS URL WITH YOUR ACTUAL WORKER URL
-const WORKER_URL = "https://zesty-proxy.latif942.workers.dev/"; 
+// API
+const GROQ_API_KEY = "YOUR_GROQ_API_KEY";
 let debounceTimer = null, isTranslating = false, pendingAfter = false;
 
 function scheduleZestify(delay = 900) {
@@ -328,28 +314,23 @@ async function zestify() {
   outputArea.className = 'output-area';
   outputArea.innerHTML = `<span class="loading-dots"><span></span><span></span><span></span></span>`;
   try {
-    const res = await fetch(WORKER_URL, {
+    const res = await fetch("https://zesty-proxy.latif942.workers.dev/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {"Content-Type":"application/json"},
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
-        max_tokens: 300,
+        model: "llama-3.3-70b-versatile", max_tokens: 300,
         messages: [
-          { role: "system", content: buildPrompt(selectedFlavor, parseInt(slider.value)) },
-          { role: "user", content: `Translate: "${input}"` }
+          {role:"system", content: buildPrompt(selectedFlavor, parseInt(slider.value))},
+          {role:"user", content: `Translate: "${input}"`}
         ]
       })
     });
-    
-    // ✅ FIX: Parse the JSON response
     const data = await res.json();
-    
     const translated = data.choices?.[0]?.message?.content || "Something went wrong bestie 💀";
     outputArea.className = 'output-area sparkle-pop';
     outputArea.textContent = translated;
     copyBtn.style.display = 'inline-block';
   } catch(e) {
-    console.error('Translation error:', e);
     outputArea.className = 'output-area';
     outputArea.textContent = "Oof, having a moment 😭 Try again?";
   }
